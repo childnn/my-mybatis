@@ -27,6 +27,8 @@ import org.apache.ibatis.reflection.ExceptionUtil;
 
 /**
  * @author Clinton Begin
+ * @see org.apache.ibatis.plugin.Interceptor
+ * @see InterceptorChain#pluginAll(Object)
  */
 public class Plugin implements InvocationHandler {
 
@@ -34,12 +36,30 @@ public class Plugin implements InvocationHandler {
   private final Interceptor interceptor;
   private final Map<Class<?>, Set<Method>> signatureMap;
 
+  /**
+   * @param target 被代理对象, 目前就是 4 类接口实现类的对象
+   *               {@link org.apache.ibatis.executor.Executor}
+   *               {@link org.apache.ibatis.executor.statement.StatementHandler}
+   *               {@link org.apache.ibatis.executor.parameter.ParameterHandler}
+   *               {@link org.apache.ibatis.executor.resultset.ResultSetHandler}
+   * @param interceptor 拦截器的实现 {@link org.apache.ibatis.plugin.Interceptor}
+   * @param signatureMap {@code interceptor} 上标注注解 {@link org.apache.ibatis.plugin.Intercepts} 解析得到的集合
+   *                                        {@link #getSignatureMap}
+   *                                        这个 map 的 key 就是 {@link Signature#type()}, value 就是 {@link Signature#method()} 和
+   *                                        {@link Signature#args()} 对应方法组成的集合
+   */
   private Plugin(Object target, Interceptor interceptor, Map<Class<?>, Set<Method>> signatureMap) {
     this.target = target;
     this.interceptor = interceptor;
     this.signatureMap = signatureMap;
   }
 
+  /**
+   * 如果存在拦截器, 则返回代理对象, 否则返回原始对象.
+   * @param target 被代理对象
+   * @param interceptor 拦截器
+   * @return 代理对象 或者原始对象
+   */
   public static Object wrap(Object target, Interceptor interceptor) {
     Map<Class<?>, Set<Method>> signatureMap = getSignatureMap(interceptor);
     Class<?> type = target.getClass();
@@ -53,6 +73,14 @@ public class Plugin implements InvocationHandler {
     return target;
   }
 
+  /**
+   * 当 4 大被代理对象 {@link Signature#type()} 存在对应的拦截器, 且执行被拦截方法 {@link Signature#method()} 时,
+   * 调用 拦截器的 intercept 方法.
+   * @param proxy 代理对象
+   * @param method 当前执行的方法
+   * @param args 方法参数
+   * @return 若为代理对象, 则执行蓝机器 {@link org.apache.ibatis.plugin.Interceptor#intercept(Invocation)}
+   */
   @Override
   public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
     try {

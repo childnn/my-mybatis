@@ -76,6 +76,14 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
     lookupConstructor = lookup;
   }
 
+  /**
+   *
+   * @param proxy mapper 的代理对象 {@link org.apache.ibatis.binding.MapperProxy}
+   * @param method 当前被执行的 mapper 的方法
+   * @param args 当前被执行的 mapper 方法传递的参数
+   * @return result
+   * @throws Throwable ignore
+   */
   @Override
   public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
     try {

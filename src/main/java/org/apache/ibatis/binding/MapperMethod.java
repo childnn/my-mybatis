@@ -281,8 +281,8 @@ public class MapperMethod {
     private final boolean returnsOptional;
     private final Class<?> returnType;
     private final String mapKey;
-    private final Integer resultHandlerIndex;
-    private final Integer rowBoundsIndex;
+    private final Integer resultHandlerIndex; // ResultHandler 实例作为方法参数时所在的索引: 0-based. 有且只能有一个该类型的参数
+    private final Integer rowBoundsIndex; // RowBounds 实例作为方法参数时所在的索引: 0-based. 有且只能有一个该类型的参数
     private final ParamNameResolver paramNameResolver;
 
     public MethodSignature(Configuration configuration, Class<?> mapperInterface, Method method) {

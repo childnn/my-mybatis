@@ -17,6 +17,7 @@ package org.apache.ibatis.executor.loader;
 
 /**
  * @author Eduardo Macarron
+ * @deprecated Replaced by {@link org.apache.ibatis.executor.loader.javassist.JavassistProxyFactory}
  */
 @Deprecated
 public final class JavassistProxyFactory extends org.apache.ibatis.executor.loader.javassist.JavassistProxyFactory {

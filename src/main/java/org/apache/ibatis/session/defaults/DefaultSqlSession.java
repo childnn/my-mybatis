@@ -148,6 +148,8 @@ public class DefaultSqlSession implements SqlSession {
   private <E> List<E> selectList(String statement, Object parameter, RowBounds rowBounds, ResultHandler handler) {
     try {
       MappedStatement ms = configuration.getMappedStatement(statement);
+      // 当存在 Executor 相关的插件, 且拦截了 query 方法时, 此处会跳转执行 org.apache.ibatis.plugin.Plugin.invoke
+      // 进而执行插件的 org.apache.ibatis.plugin.Interceptor.intercept 方法
       return executor.query(ms, wrapCollection(parameter), rowBounds, handler);
     } catch (Exception e) {
       throw ExceptionFactory.wrapException("Error querying database.  Cause: " + e, e);

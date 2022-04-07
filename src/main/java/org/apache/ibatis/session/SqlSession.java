@@ -279,6 +279,7 @@ public interface SqlSession extends Closeable {
    * @param <T> the mapper type
    * @param type Mapper interface class
    * @return a mapper bound to this SqlSession
+   * MapperRegistry -> MapperProxyFactory -> MapperProxy -> invoke -> SqlSession.crud
    */
   <T> T getMapper(Class<T> type);
 

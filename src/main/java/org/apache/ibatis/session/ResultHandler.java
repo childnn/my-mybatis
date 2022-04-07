@@ -17,6 +17,14 @@ package org.apache.ibatis.session;
 
 /**
  * @author Clinton Begin
+ * @see org.apache.ibatis.plugin.InterceptorChain#pluginAll(Object)
+ * 可被拦截对象之一
+ * @see org.apache.ibatis.executor.Executor
+ * @see org.apache.ibatis.executor.statement.StatementHandler
+ * @see org.apache.ibatis.executor.parameter.ParameterHandler
+ * --
+ * @see org.apache.ibatis.plugin.Intercepts
+ * @see org.apache.ibatis.plugin.Signature
  */
 public interface ResultHandler<T> {
 

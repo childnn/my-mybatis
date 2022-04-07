@@ -41,6 +41,7 @@ import java.lang.annotation.Target;
  * }
  * </pre>
  * @author Clinton Begin
+ * 拦截器容器注解
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

@@ -35,9 +35,15 @@ import org.apache.ibatis.transaction.Transaction;
 
 /**
  * @author Clinton Begin
+ * Reuse the statement
+ * @see java.sql.Statement
  */
 public class ReuseExecutor extends BaseExecutor {
 
+  /**
+   * key: the executing sql
+   * value: the Statement binding with the sql
+   */
   private final Map<String, Statement> statementMap = new HashMap<>();
 
   public ReuseExecutor(Configuration configuration, Transaction transaction) {

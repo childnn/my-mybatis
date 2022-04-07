@@ -17,7 +17,19 @@ package org.apache.ibatis.session;
 
 /**
  * @author Clinton Begin
+ * @see Configuration#newExecutor(org.apache.ibatis.transaction.Transaction, org.apache.ibatis.session.ExecutorType)
  */
 public enum ExecutorType {
-  SIMPLE, REUSE, BATCH
+  /**
+   * @see org.apache.ibatis.executor.SimpleExecutor
+   */
+  SIMPLE,
+  /**
+   * @see org.apache.ibatis.executor.ReuseExecutor
+   */
+  REUSE,
+  /**
+   * @see org.apache.ibatis.executor.BaseExecutor
+   */
+  BATCH
 }

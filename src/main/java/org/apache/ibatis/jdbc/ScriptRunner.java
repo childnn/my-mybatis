@@ -143,6 +143,10 @@ public class ScriptRunner {
     }
   }
 
+  /**
+   * 读取 sql-script 文件: 逐行读取
+   * 以 分隔符(delimiter) 作为一个执行单元.
+   */
   private void executeLineByLine(Reader reader) {
     StringBuilder command = new StringBuilder();
     try {
@@ -234,7 +238,8 @@ public class ScriptRunner {
 
   private boolean commandReadyToExecute(String trimmedLine) {
     // issue #561 remove anything after the delimiter
-    return !fullLineDelimiter && trimmedLine.contains(delimiter) || fullLineDelimiter && trimmedLine.equals(delimiter);
+    return !fullLineDelimiter && trimmedLine.contains(delimiter)  // 含分号
+      || fullLineDelimiter && trimmedLine.equals(delimiter);
   }
 
   private void executeStatement(String command) throws SQLException {

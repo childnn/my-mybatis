@@ -25,6 +25,7 @@ import java.lang.annotation.Target;
  *
  * @see Intercepts
  * @author Clinton Begin
+ * 被拦截方法签名
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

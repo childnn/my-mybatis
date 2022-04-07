@@ -17,6 +17,7 @@ package org.apache.ibatis.executor.loader;
 
 /**
  * @author Clinton Begin
+ * @deprecated replaced by {@link org.apache.ibatis.executor.loader.cglib.CglibProxyFactory}
  */
 @Deprecated
 public class CglibProxyFactory extends org.apache.ibatis.executor.loader.cglib.CglibProxyFactory {

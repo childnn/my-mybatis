@@ -20,11 +20,22 @@ import java.lang.reflect.Method;
 
 /**
  * @author Clinton Begin
+ * 对应 {@link Signature} 注解的各个参数.
+ * 可以认为是对被拦截方法的封装.
  */
 public class Invocation {
 
+  /**
+   * 被代理对象
+   */
   private final Object target;
+  /**
+   * 当前执行的方法
+   */
   private final Method method;
+  /**
+   * 方法参数: 注这个参数是指当前执行方法的参数
+   */
   private final Object[] args;
 
   public Invocation(Object target, Method method, Object[] args) {
@@ -45,6 +56,9 @@ public class Invocation {
     return args;
   }
 
+  /**
+   * 直接执行方法
+   */
   public Object proceed() throws InvocationTargetException, IllegalAccessException {
     return method.invoke(target, args);
   }

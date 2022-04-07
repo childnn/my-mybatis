@@ -63,7 +63,7 @@ public abstract class BaseDataTest {
       ScriptRunner runner = new ScriptRunner(connection);
       runner.setAutoCommit(true);
       runner.setStopOnError(false);
-      runner.setLogWriter(null);
+      // runner.setLogWriter(null); // 打印日志信息到控制台
       runner.setErrorLogWriter(null);
       runScript(runner, resource);
     }
